@@ -4,6 +4,11 @@ export default defineNuxtConfig({
   },
   css: ['./app/assets/css/main.css'],
   compatibilityDate: '2026-03-22',
+  nitro: {
+    output: {
+      publicDir: '.output/public'
+    }
+  },
   app: {
     head: {
       link: [
