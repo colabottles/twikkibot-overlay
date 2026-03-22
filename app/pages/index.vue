@@ -61,7 +61,7 @@
                 <span class="task-item__text">{{ task.text }}</span>
               </li>
               <li
-                v-for="task in user.done.slice(0, 1)"
+                v-for="task in user.done.slice(0, 10)"
                 :key="task.id"
                 class="task-item task-item--done"
                 role="listitem">

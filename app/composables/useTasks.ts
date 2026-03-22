@@ -29,9 +29,8 @@ export function useTasks(channel: string) {
       .select('id, username, text, status, position, updated_at')
       .eq('channel', channel)
       .in('status', ['active', 'backlog', 'done'])
-      .gte('updated_at', oneHourAgo)
       .order('updated_at', { ascending: false })
-      .limit(50)
+      .limit(100)
 
     if (!data) return
 
