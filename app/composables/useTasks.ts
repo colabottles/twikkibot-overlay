@@ -38,12 +38,18 @@ export function useTasks(channel: string) {
     const rows = data as Task[]
     const map = new Map<string, UserTasks>()
 
+    const doneIds = new Set<string>()
+
+    for (const task of rows) {
+      if (task.status === 'done') doneIds.add(task.id)
+    }
+
     for (const task of rows) {
       if (!map.has(task.username)) {
         map.set(task.username, { username: task.username, active: null, backlog: [], done: [] })
       }
       const entry = map.get(task.username)!
-      if (task.status === 'active' && entry.active === null) {
+      if (task.status === 'active' && entry.active === null && !doneIds.has(task.id)) {
         entry.active = task
       } else if (task.status === 'backlog') {
         entry.backlog.push(task)
