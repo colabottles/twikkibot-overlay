@@ -22,11 +22,14 @@ export function useTasks(channel: string) {
   const userTasks = ref<UserTasks[]>([])
 
   async function fetchTasks() {
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
+
     const { data } = await supabase
       .from('tasks')
       .select('id, username, text, status, position, updated_at')
       .eq('channel', channel)
       .in('status', ['active', 'backlog', 'done'])
+      .gte('updated_at', oneHourAgo)
       .order('updated_at', { ascending: false })
       .limit(50)
 
@@ -54,6 +57,13 @@ export function useTasks(channel: string) {
       if (b.username === channel) return 1
       return a.username.localeCompare(b.username)
     })
+  }
+
+  let fetchTimeout: ReturnType<typeof setTimeout> | null = null
+
+  function debouncedFetch() {
+    if (fetchTimeout) clearTimeout(fetchTimeout)
+    fetchTimeout = setTimeout(() => fetchTasks(), 100)
   }
 
   onMounted(async () => {
