@@ -1,0 +1,16 @@
+{
+  "name": "twikkibot-overlay",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.99.3",
+    "npm-check-updates": "^19.6.5",
+    "nuxt": "^4.4.2"
+  }
+}
