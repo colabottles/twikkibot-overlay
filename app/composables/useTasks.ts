@@ -43,7 +43,7 @@ export function useTasks(channel: string) {
         map.set(task.username, { username: task.username, active: null, backlog: [], done: [] })
       }
       const entry = map.get(task.username)!
-      if (task.status === 'active') {
+      if (task.status === 'active' && entry.active === null) {
         entry.active = task
       } else if (task.status === 'backlog') {
         entry.backlog.push(task)
@@ -81,7 +81,7 @@ export function useTasks(channel: string) {
   })
 
   onUnmounted(() => {
-    supabase.removeAllChannels()
+    supabase.removeChannel(supabase.channel('tasks-overlay'))
   })
 
   return { userTasks }

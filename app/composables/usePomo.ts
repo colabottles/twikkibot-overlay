@@ -101,7 +101,7 @@ export function usePomo(channel: string) {
 
   onUnmounted(() => {
     if (tickInterval) clearInterval(tickInterval)
-    supabase.removeAllChannels()
+    supabase.removeChannel(supabase.channel('timers-overlay'))
   })
 
   return { state }
