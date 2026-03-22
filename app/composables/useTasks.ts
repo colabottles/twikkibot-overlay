@@ -58,7 +58,6 @@ export function useTasks(channel: string) {
 
   onMounted(async () => {
     await fetchTasks()
-    supabase.removeAllChannels()
     supabase
       .channel('tasks-overlay')
       .on(

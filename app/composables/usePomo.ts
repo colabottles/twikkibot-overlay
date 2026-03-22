@@ -101,7 +101,6 @@ export function usePomo(channel: string) {
 
   onUnmounted(() => {
     if (tickInterval) clearInterval(tickInterval)
-    supabase.removeAllChannels()
   })
 
   return { state }
