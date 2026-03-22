@@ -58,9 +58,7 @@ export function useTasks(channel: string) {
 
   onMounted(async () => {
     await fetchTasks()
-
     supabase.removeAllChannels()
-
     supabase
       .channel('tasks-overlay')
       .on(
@@ -68,7 +66,9 @@ export function useTasks(channel: string) {
         { event: '*', schema: 'public', table: 'tasks', filter: `channel=eq.${channel}` },
         () => fetchTasks()
       )
-      .subscribe()
+      .subscribe((status) => {
+        console.log('Realtime subscription status:', status)
+      })
   })
 
   onUnmounted(() => {
