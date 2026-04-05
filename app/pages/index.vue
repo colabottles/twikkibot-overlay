@@ -46,19 +46,23 @@
             v-for="user in userTasks"
             :key="user.username"
             class="task-group">
-            <span class="task-group__user" aria-label="Username">{{ user.username }}</span>
             <ul role="list">
               <li v-if="user.active" class="task-item task-item--active" role="listitem">
                 <span class="task-item__dot task-item__dot--active" aria-hidden="true" />
-                <span class="task-item__text">{{ user.active.text }}</span>
+                <span class="task-item__text">
+                  <span class="task-item__username">{{ user.username }}:</span> {{ user.active.text
+                  }}
+                </span>
               </li>
               <li
-                v-for="task in user.backlog.slice(0, 2)"
+                v-for="(task, index) in user.backlog.slice(0, 5)"
                 :key="task.id"
                 class="task-item task-item--backlog"
                 role="listitem">
-                <span class="task-item__dot" aria-hidden="true" />
-                <span class="task-item__text">{{ task.text }}</span>
+                <span class="task-item__number" aria-hidden="true">{{ index + 1 }}</span>
+                <span class="task-item__text">
+                  <span class="task-item__username">{{ user.username }}:</span> {{ task.text }}
+                </span>
               </li>
               <li
                 v-for="task in user.done.slice(0, 10)"
@@ -66,7 +70,10 @@
                 class="task-item task-item--done"
                 role="listitem">
                 <span class="task-item__dot task-item__dot--done" aria-hidden="true" />
-                <span class="task-item__text">{{ task.text }}</span>
+                <span class="task-item__text">
+                  <span class="task-item__username">{{ user.username }}:</span> <span
+                    class="task-item__done-text">{{ task.text }}</span>
+                </span>
               </li>
             </ul>
           </li>
@@ -74,8 +81,8 @@
       </div>
     </section>
 
-    <!-- Commands panel -->
-     <section class="panel" aria-label="Available commands">
+    <!-- ── Commands panel ── -->
+    <section class="panel" aria-label="Available commands">
       <header class="panel__header">
         <span class="panel__title">Commands</span>
       </header>
@@ -83,12 +90,13 @@
         <div class="commands">
           <div class="commands__group">
             <span class="commands__label">Tasks</span>
-            <span class="commands__list">!task • !later • !soon • !done • !done next • !remove •
-            !rename • !mydone</span>
+            <span class="commands__list">!task • !later • !soon • !done • !done next • !remove <br>
+              !rename • !mydone</span>
           </div>
           <div class="commands__group">
             <span class="commands__label">Timer</span>
-            <span class="commands__list">!pomo start &lt;work&gt; &lt;break&gt; • !pomo • !pomo stop</span>
+            <span class="commands__list">!pomo start &lt;work&gt; &lt;break&gt; • !pomo • !pomo
+              stop</span>
           </div>
           <div class="commands__group">
             <span class="commands__label">Wellness</span>
@@ -96,18 +104,13 @@
           </div>
         </div>
       </div>
-     </section>
+    </section>
 
   </main>
 </template>
 
 <script setup lang="ts">
-const supabase = useSupabase()
 const { userTasks } = useTasks('toddcodes')
 const { state: pomoState } = usePomo('toddcodes')
 const pomo = computed(() => pomoState.value)
-
-// Debug
-const result = await supabase.from('tasks').select('*').eq('channel', 'toddcodes').in('status', ['active', 'backlog'])
-console.log('Direct query result:', result)
 </script>
