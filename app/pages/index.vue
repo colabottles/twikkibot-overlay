@@ -74,6 +74,30 @@
       </div>
     </section>
 
+    <!-- Commands panel -->
+     <section class="panel" aria-label="Available commands">
+      <header class="panel__header">
+        <span class="panel__title">Commands</span>
+      </header>
+      <div class="panel__body">
+        <div class="commands">
+          <div class="commands__group">
+            <span class="commands__label">Tasks</span>
+            <span class="commands__list">!task • !later • !soon • !done • !done next • !remove •
+            !rename • !mydone</span>
+          </div>
+          <div class="commands__group">
+            <span class="commands__label">Timer</span>
+            <span class="commands__list">!pomo start &lt;work&gt; &lt;break&gt; • !pomo • !pomo stop</span>
+          </div>
+          <div class="commands__group">
+            <span class="commands__label">Wellness</span>
+            <span class="commands__list">!hype • !hydrate • !stand • !vibe</span>
+          </div>
+        </div>
+      </div>
+     </section>
+
   </main>
 </template>
 

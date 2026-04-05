@@ -208,6 +208,34 @@ body {
   opacity: 0.5;
 }
 
+/* Commands  */
+.commands {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.commands__group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.commands__label {
+  font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--siren-song);
+  font-weight: 400;
+}
+
+.commands__list {
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+  color: var(--white-linen);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
